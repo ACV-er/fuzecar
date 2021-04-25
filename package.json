@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "apidoc": "apidoc -i app/ -o apidoc/"
+  },
+  "devDependencies": {
+    "apidoc": "^0.18.0"
+  }
+}

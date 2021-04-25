@@ -1,0 +1,49 @@
+version: '3'
+services:
+  web:
+    image: "nginx:1.17.5"
+    container_name: "fuzecar_nginx"
+    ports:
+      - "10303:80"
+    volumes:
+      - ./:/var/www/html/
+      - ./dockercnf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./dockercnf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./dockercnf/nginx/ssl/:/etc/nginx/ssl/
+      - ./dockercnf/run:/sock
+    depends_on:
+      - php
+  php:
+    build: ./dockercnf/php7.3-fpm/
+    image: "php:7.3-fpm"
+    container_name: "fuzecar_php"
+    privileged: true
+    volumes:
+      - ./:/var/www/html/
+      - ./dockercnf/run:/sock
+      - ./dockercnf/php7.3-fpm/php.ini:/usr/local/etc/php/php.ini
+      - ./dockercnf/php7.3-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    depends_on:
+      - db
+      - redis_db
+    cap_add:
+      - SYS_PTRACE
+  db:
+    image: "mysql:5.7.28"
+    container_name: "fuzecar_mysql"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./dockercnf/mysql5.7/db_data:/var/lib/mysql
+      - ./dockercnf/run/mysql:/var/run/mysqld
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: yourpassword
+      MYSQL_DATABASE: fuzecar
+  redis_db:
+    image: "redis:5.0.7"
+    container_name: "fuzecar_redis"
+    volumes:
+      - ./dockercnf/redis/image_redis_db/:/data
+
