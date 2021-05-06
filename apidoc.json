@@ -1,9 +1,9 @@
 {
-    "name": "湘大评测项目接口文档",
+    "name": "fuzecar项目接口文档",
     "version": "1.0.0",
     "description": "均在header中带上Cookie laravel_session={laravel_session}\npost、put、delete均使用post其中put、delete追加post参数： _method={put/delete}",
-    "title": "UPick API",
-    "url": "https://upick.acver.xyz",
+    "title": "FuZeCar API",
+    "url": "https://fuzecar.acver.xyz",
     "forceLanguage": "zh-CN",
     "header": {
         "title": "全局code解释",
