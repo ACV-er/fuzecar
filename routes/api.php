@@ -19,6 +19,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::namespace('Api')->group(function () {
-    Route::get('/all', "UserLoginController@login");
     Route::get('/cars', "CarController@getList");
+    Route::post('/user', "UserController@register");
+    Route::get('/user', "UserController@login");
+    
+    Route::group(['middleware' => 'login.check'], function () {
+        Route::post('/user/password', "UserController@updatePassword");
+        Route::post('/user/signature', "UserController@updateSignature");
+        Route::post('/user/avatar', "UserController@updateAvatar");
+    });
 });

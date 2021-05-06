@@ -19,6 +19,7 @@ class CreateCarsTable extends Migration
             $table->string("positionX")->comment("经度");
             $table->string("positionY")->comment("纬度");
             $table->string("mileage")->comment("总里程");
+            $table->string("number_plate", 20);
             $table->json("imageUrls")->comment("车辆照片");
             $table->timestamps();
         });

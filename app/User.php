@@ -2,103 +2,42 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    //
     protected $fillable = [
-        'nickname', 'stu_id', 'password', 'collection', 'publish', "remember"
+        'nickname', 'account', 'password', 'signature', 'avatar',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [];
+    public static function register($account, $pwd) {
+        $user = new User([
+            'nickname' => random_int(100000, 500000),
+            'account' => $account,
+            'password' => md5($pwd),
+            'signature' => "",
+            'avatar' => "",
+        ]);
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+        return $user->save();
+    }
 
-    public function info()
-    {
+    public function verifyPassword($pwd) {
+        return md5($pwd) === $this->password;
+    }
+
+    public function setPassword($pwd) {
+        $this->password = md5($pwd);
+        $this->save();
+    }
+
+    public function info() {
         return [
-            'id' => $this->id,
             'nickname' => $this->nickname,
-            'stu_id' => $this->stu_id,
-            'collection' => $this->collection,
-            'publish' => $this->publish,
-            'remember' => $this->remember
+            'account' => $this->account,
+            'signature' => $this->signature,
+            'avatar' => $this->avatar,
         ];
-    }
-
-    public function add_publish($evaluation_id)
-    {
-        $publish_list = json_decode($this->publish, true);
-        if (!key_exists($evaluation_id, $publish_list)) {
-            $publish_list[$evaluation_id] = 1;
-        }
-        $this->publish = json_encode($publish_list);
-        $this->save();
-    }
-
-    public function del_publish($evaluation_id)
-    {
-        $publish_list = json_decode($this->publish, true);
-        if (key_exists($evaluation_id, $publish_list)) {
-            unset($publish_list[$evaluation_id]);
-        }
-        $this->publish = json_encode($publish_list);
-        $this->save();
-    }
-
-    /**
-     * @param $evaluation_id
-     * @return bool true代表动作成功，否则表名已收藏
-     */
-    public function add_collection($evaluation_id)
-    {
-        $collection_list = json_decode($this->collection, true);
-        if (!key_exists($evaluation_id, $collection_list)) {
-            $collection_list[$evaluation_id] = 1;
-        } else {
-            return false;
-        }
-        $this->collection = json_encode($collection_list);
-        $this->save();
-
-        return true;
-    }
-
-    /**
-     * @param $evaluation_id
-     * @return bool true代表动作成功，否则表名已取消收藏或者未收藏
-     */
-    public function del_collection($evaluation_id)
-    {
-        $collection_list = json_decode($this->collection, true);
-        if (key_exists($evaluation_id, $collection_list)) {
-            unset($collection_list[$evaluation_id]);
-        } else {
-            return false;
-        }
-        $this->collection = json_encode($collection_list);
-        $this->save();
-
-        return true;
     }
 }

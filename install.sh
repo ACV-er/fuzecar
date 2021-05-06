@@ -15,6 +15,8 @@ if [ ! -f ".env" ]; then
   docker exec -it fuzecar_php php artisan key:generate
   docker exec -it fuzecar_php php artisan storage:link
 
+  # 等待mysql容器启动
+  sleep 10  
   docker exec -it fuzecar_php php artisan migrate:refresh --seed
 fi
 
