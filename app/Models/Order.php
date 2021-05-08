@@ -8,7 +8,7 @@ class Order extends Model
 {
     //
     protected $fillable = [
-        'car_id', 'status', 'begin_status', 'end_status', 'consumption',
-        'begin_time', 'end_time',
+        'uid', 'car_id', 'status', 'begin_status', 'end_status', 'consumption',
+        'begin_time', 'end_time', 'cost',
     ];
 }

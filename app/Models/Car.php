@@ -9,7 +9,7 @@ class Car extends Model
 {
     //
     protected $fillable = [
-        'model', 'positionX', 'positionY', "mileage", "imageUrls"
+        'model', 'positionX', 'positionY', "mileage", "imageUrls", "city"
     ];
 
     public static function list(int $page, int $per_page): array
@@ -19,5 +19,41 @@ class Car extends Model
             '(SELECT * FROM `cars` LIMIT ? OFFSET ?) AS t ' .
             'LEFT JOIN car_models AS m ON(t.model=m.id) LEFT JOIN brands AS b ON(m.brand=b.id)', 
             [$per_page, $page*$per_page]);
+    }
+
+    public function status() {
+        return [
+            "positionX" => $this->positionX,
+            "positionY" => $this->positionY,
+            "mileage" => $this->mileage,
+            "city" => $this->city,
+        ];
+    }
+
+    public function info() {
+        return array_merge([
+            "model" => $this->model,
+            "number_plate" => $this->number_plate,
+            "imageUrls" => $this->imageUrls,
+        ], $this->status());
+    }
+
+    public function setPosition($positionX, $positionY) {
+        $this->positionX = $positionX;
+        $this->positionY = $positionY;
+
+        $this->save();
+    }
+
+    public function setCity($city) {
+        $this->city = $city;
+
+        $this->save();
+    }
+
+    public function addMileage($mileage) {
+        $this->mileage = floatval($mileage) + floatval($this->mileage);
+
+        $this->save();
     }
 }

@@ -27,5 +27,11 @@ Route::namespace('Api')->group(function () {
         Route::post('/user/password', "UserController@updatePassword");
         Route::post('/user/signature', "UserController@updateSignature");
         Route::post('/user/avatar', "UserController@updateAvatar");
+        Route::post('/user/nickname', "UserController@updateNickname");
+
+        Route::get('/orders', "OrderController@orderList");
+        Route::get('/order/{id}', "OrderController@order");
+        Route::post('/order', "OrderController@create");
+        Route::post('/order/{id}/close', "OrderController@close");
     });
 });

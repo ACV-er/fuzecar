@@ -370,6 +370,247 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/order/:id",
+    "title": "获取用户订单",
+    "group": "订单",
+    "version": "1.0.0",
+    "description": "<p>获取用户订单,id为url参数，如订单id为1则url为 /api/order/1</p> <p>apiParam {Number}  id    订单id</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>订单列表信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/OrderController.php",
+    "groupTitle": "订单",
+    "name": "GetApiOrderId"
+  },
+  {
+    "type": "get",
+    "url": "/api/orders",
+    "title": "获取用户订单列表",
+    "group": "订单",
+    "version": "1.0.0",
+    "description": "<p>获取用户订单列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>订单列表信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/OrderController.php",
+    "groupTitle": "订单",
+    "name": "GetApiOrders"
+  },
+  {
+    "type": "post",
+    "url": "/api/order",
+    "title": "开始租车订单",
+    "group": "订单",
+    "version": "1.0.0",
+    "description": "<p>开始租车订单</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "car_id",
+            "description": "<p>车辆id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回生成的订单id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/OrderController.php",
+    "groupTitle": "订单",
+    "name": "PostApiOrder"
+  },
+  {
+    "type": "post",
+    "url": "/api/order/:id/close",
+    "title": "结束租车订单",
+    "group": "订单",
+    "version": "1.0.0",
+    "description": "<p>结束租车订单</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>订单id，url参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "consumption",
+            "description": "<p>订单内油耗</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "positionX",
+            "description": "<p>经度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "positionY",
+            "description": "<p>纬度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "mileage",
+            "description": "<p>订单内里程</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "city",
+            "description": "<p>还车城市</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>后端参考信息，前端无关</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/OrderController.php",
+    "groupTitle": "订单",
+    "name": "PostApiOrderIdClose"
+  },
+  {
+    "type": "get",
     "url": "/api/cars/:id",
     "title": "汽车列表",
     "group": "车辆",
