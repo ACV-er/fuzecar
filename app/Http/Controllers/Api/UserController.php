@@ -153,7 +153,7 @@ class UserController extends Controller
     public function updateNickname(Request $request) {
         $data = $request->only(["nickname"]);
         $user = User::find(session('uid'));
-        $user->avatar = $data["nickname"];
+        $user->nickname = $data["nickname"];
         $user->save();
         return msg(0, __LINE__);
     }
