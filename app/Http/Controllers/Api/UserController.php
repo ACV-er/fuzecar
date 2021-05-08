@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     //
     /**
-     * @api {post} /user     注册
+     * @api {post} /api/user     注册
      * @apiGroup 用户
      * @apiVersion 1.0.0
      *
@@ -36,7 +36,7 @@ class UserController extends Controller
     }
 
     /**
-     * @api {get} /user     登陆
+     * @api {get} /api/user     登陆
      * @apiGroup 用户
      * @apiVersion 1.0.0
      *
@@ -47,10 +47,10 @@ class UserController extends Controller
      *
      * @apiSuccess {Number} code     状态码，0：请求成功
      * @apiSuccess {String} message  提示信息
-     * @apiSuccess {Object} data     后端参考信息，前端无关
+     * @apiSuccess {Object} data     个人信息
      *
      * @apiSuccessExample {json} Success-Response:
-     * {"code":0,"status":"成功","data":43}
+     * {"code":0,"status":"成功","data":{"nickname":"124090","account":"123456","signature":"签名测试","avatar":""}}
      */
     public function login(Request $request) {
         $data = $request->only(["account", "password"]);
@@ -63,7 +63,7 @@ class UserController extends Controller
     }
 
     /**
-     * @api {post} /user/password     修改密码
+     * @api {post} /api/user/password     修改密码
      * @apiGroup 用户
      * @apiVersion 1.0.0
      *
@@ -87,7 +87,7 @@ class UserController extends Controller
     }
 
     /**
-     * @api {post} /user/signature     修改个性签名
+     * @api {post} /api/user/signature     修改个性签名
      * @apiGroup 用户
      * @apiVersion 1.0.0
      *
@@ -111,13 +111,13 @@ class UserController extends Controller
     }
 
     /**
-     * @api {post} /user/signature     修改头像
+     * @api {post} /api/user/avatar     修改头像
      * @apiGroup 用户
      * @apiVersion 1.0.0
      *
      * @apiDescription 修改头像
      *
-     * @apiParam {String}  signature     头像url
+     * @apiParam {String}  avatar     头像url
      *
      * @apiSuccess {Number} code     状态码，0：请求成功
      * @apiSuccess {String} message  提示信息
@@ -130,6 +130,30 @@ class UserController extends Controller
         $data = $request->only(["avatar"]);
         $user = User::find(session('uid'));
         $user->avatar = $data["avatar"];
+        $user->save();
+        return msg(0, __LINE__);
+    }
+
+    /**
+     * @api {post} /api/user/nickname     修改昵称
+     * @apiGroup 用户
+     * @apiVersion 1.0.0
+     *
+     * @apiDescription 修改昵称
+     *
+     * @apiParam {String}  nickname     昵称
+     *
+     * @apiSuccess {Number} code     状态码，0：请求成功
+     * @apiSuccess {String} message  提示信息
+     * @apiSuccess {Object} data     后端参考信息，前端无关
+     *
+     * @apiSuccessExample {json} Success-Response:
+     * {"code":0,"status":"成功","data":43}
+     */
+    public function updateNickname(Request $request) {
+        $data = $request->only(["nickname"]);
+        $user = User::find(session('uid'));
+        $user->avatar = $data["nickname"];
         $user->save();
         return msg(0, __LINE__);
     }

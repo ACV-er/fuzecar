@@ -1,7 +1,7 @@
 [
   {
     "type": "get",
-    "url": "/user",
+    "url": "/api/user",
     "title": "登陆",
     "group": "用户",
     "version": "1.0.0",
@@ -48,25 +48,25 @@
             "type": "Object",
             "optional": false,
             "field": "data",
-            "description": "<p>后端参考信息，前端无关</p>"
+            "description": "<p>个人信息</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":{\"nickname\":\"124090\",\"account\":\"123456\",\"signature\":\"签名测试\",\"avatar\":\"\"}}",
           "type": "json"
         }
       ]
     },
     "filename": "app/Http/Controllers/Api/UserController.php",
     "groupTitle": "用户",
-    "name": "GetUser"
+    "name": "GetApiUser"
   },
   {
     "type": "post",
-    "url": "/user",
+    "url": "/api/user",
     "title": "注册",
     "group": "用户",
     "version": "1.0.0",
@@ -127,11 +127,127 @@
     },
     "filename": "app/Http/Controllers/Api/UserController.php",
     "groupTitle": "用户",
-    "name": "PostUser"
+    "name": "PostApiUser"
   },
   {
     "type": "post",
-    "url": "/user/password",
+    "url": "/api/user/avatar",
+    "title": "修改头像",
+    "group": "用户",
+    "version": "1.0.0",
+    "description": "<p>修改头像</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>头像url</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>后端参考信息，前端无关</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserController.php",
+    "groupTitle": "用户",
+    "name": "PostApiUserAvatar"
+  },
+  {
+    "type": "post",
+    "url": "/api/user/nickname",
+    "title": "修改昵称",
+    "group": "用户",
+    "version": "1.0.0",
+    "description": "<p>修改昵称</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>昵称</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>后端参考信息，前端无关</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/UserController.php",
+    "groupTitle": "用户",
+    "name": "PostApiUserNickname"
+  },
+  {
+    "type": "post",
+    "url": "/api/user/password",
     "title": "修改密码",
     "group": "用户",
     "version": "1.0.0",
@@ -192,11 +308,11 @@
     },
     "filename": "app/Http/Controllers/Api/UserController.php",
     "groupTitle": "用户",
-    "name": "PostUserPassword"
+    "name": "PostApiUserPassword"
   },
   {
     "type": "post",
-    "url": "/user/signature",
+    "url": "/api/user/signature",
     "title": "修改个性签名",
     "group": "用户",
     "version": "1.0.0",
@@ -250,65 +366,7 @@
     },
     "filename": "app/Http/Controllers/Api/UserController.php",
     "groupTitle": "用户",
-    "name": "PostUserSignature"
-  },
-  {
-    "type": "post",
-    "url": "/user/signature",
-    "title": "修改头像",
-    "group": "用户",
-    "version": "1.0.0",
-    "description": "<p>修改头像</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "signature",
-            "description": "<p>头像url</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "code",
-            "description": "<p>状态码，0：请求成功</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "message",
-            "description": "<p>提示信息</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>后端参考信息，前端无关</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "app/Http/Controllers/Api/UserController.php",
-    "groupTitle": "用户",
-    "name": "PostUserSignature"
+    "name": "PostApiUserSignature"
   },
   {
     "type": "get",
