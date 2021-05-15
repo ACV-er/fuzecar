@@ -20,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function () {
     Route::get('/cars', "CarController@getList");
+    Route::get('/car/{car_id}', "CarController@history");
     Route::post('/user', "UserController@register");
     Route::get('/user', "UserController@login");
-    
+
     Route::group(['middleware' => 'login.check'], function () {
         Route::post('/user/password', "UserController@updatePassword");
         Route::post('/user/signature', "UserController@updateSignature");

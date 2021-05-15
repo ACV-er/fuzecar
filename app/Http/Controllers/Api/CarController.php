@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class CarController extends Controller
 {
     //
     /**
-     * @api {get} /api/cars/:id     汽车列表
+     * @api {get} /api/cars     汽车列表
      * @apiGroup 车辆
      * @apiVersion 1.0.0
      *
@@ -59,8 +60,48 @@ class CarController extends Controller
      * ]
      *}     
      */
-    public function getList(Request $request) {
+    public function getList(Request $request)
+    {
         $data = $request->only(["page", "pre_page"]);
         return msg(0, Car::list($data['page'], $data['pre_page']));
+    }
+
+    //
+    /**
+     * @api {get} /api/car/:car_id     汽车使用记录
+     * @apiGroup 车辆
+     * @apiVersion 1.0.0
+     *
+     * @apiDescription 汽车列表
+     *
+     * @apiParam {Number}  car_id       url参数,汽车id
+     *
+     * @apiSuccess {Number} code     状态码，0：请求成功
+     * @apiSuccess {String} message  提示信息
+     * @apiSuccess {Object} data     车辆列表
+     *
+     * @apiSuccessExample {json} Success-Response:
+     * {
+     * "code":0,
+     * "status":"成功",
+     * "data":{
+     *     "info": {
+     *       汽车信息
+     *     },
+     *     "history": [
+     *       使用记录
+     *     ]
+     * }
+     *}     
+     */
+    public function history(Request $request)
+    {
+        $car_id = $request->route('car_id');
+        $car = Car::find($car_id)->toArray();
+        $history = Order::query()->select("begin_status", "end_status", "begin_time", "end_time")
+            ->where("car_id", $car_id)
+            ->get()->toArray();
+
+        return msg(0, ['info' => $car, 'history' => $history]);
     }
 }
