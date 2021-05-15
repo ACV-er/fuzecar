@@ -1,5 +1,72 @@
 [
   {
+    "type": "post",
+    "url": "/api/image",
+    "title": "图片上传",
+    "group": "图片",
+    "name": "图片上传",
+    "version": "1.0.0",
+    "description": "<p>上传图片，返回url。登陆后可操作</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "image",
+            "description": "<p>图片文件</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>状态信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>图片url</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":\"https://upick.acver.xyz/image/123.jpg\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "{\"code\":500,\"status\":\"上传失败\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/ImageController.php",
+    "groupTitle": "图片"
+  },
+  {
     "type": "get",
     "url": "/api/user",
     "title": "登陆",
@@ -611,7 +678,65 @@
   },
   {
     "type": "get",
-    "url": "/api/cars/:id",
+    "url": "/api/car/:car_id",
+    "title": "汽车使用记录",
+    "group": "车辆",
+    "version": "1.0.0",
+    "description": "<p>汽车列表</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "car_id",
+            "description": "<p>url参数,汽车id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>车辆列表</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n\"code\":0,\n\"status\":\"成功\",\n\"data\":{\n    \"info\": {\n      汽车信息\n    },\n    \"history\": [\n      使用记录\n    ]\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/CarController.php",
+    "groupTitle": "车辆",
+    "name": "GetApiCarCar_id"
+  },
+  {
+    "type": "get",
+    "url": "/api/cars",
     "title": "汽车列表",
     "group": "车辆",
     "version": "1.0.0",
@@ -672,6 +797,6 @@
     },
     "filename": "app/Http/Controllers/Api/CarController.php",
     "groupTitle": "车辆",
-    "name": "GetApiCarsId"
+    "name": "GetApiCars"
   }
 ]

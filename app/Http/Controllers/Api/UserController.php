@@ -26,11 +26,16 @@ class UserController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $data = $request->only(["account", "password"]);
+        $user = User::query()->where('account', $data["account"])->first();
+        if ($user) {
+            return msg(4, "用户已存在");
+        }
         $rel = User::register($data["account"], $data["password"]);
-        if(!$rel) {
-            return msg(-1, __LINE__);
+        if (!$rel) {
+            return msg(4, __LINE__);
         }
         return msg(0, __LINE__);
     }
@@ -52,10 +57,11 @@ class UserController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":{"nickname":"124090","account":"123456","signature":"签名测试","avatar":""}}
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $data = $request->only(["account", "password"]);
         $user = User::query()->where('account', $data["account"])->first();
-        if($user->verifyPassword($data["password"])) {
+        if ($user->verifyPassword($data["password"])) {
             session(["uid" => $user->id]);
             return msg(0, $user->info());
         }
@@ -79,7 +85,8 @@ class UserController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function updatePassword(Request $request) {
+    public function updatePassword(Request $request)
+    {
         $data = $request->only(["password", "new_password"]);
         $user = User::find(session('uid'));
         $user->setPassword($data["new_password"]);
@@ -102,8 +109,9 @@ class UserController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function updateSignature(Request $request) {
-        $data = $request->only(["signature"]); 
+    public function updateSignature(Request $request)
+    {
+        $data = $request->only(["signature"]);
         $user = User::find(session('uid'));
         $user->signature = $data["signature"];
         $user->save();
@@ -126,7 +134,8 @@ class UserController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function updateAvatar(Request $request) {
+    public function updateAvatar(Request $request)
+    {
         $data = $request->only(["avatar"]);
         $user = User::find(session('uid'));
         $user->avatar = $data["avatar"];
@@ -150,7 +159,8 @@ class UserController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function updateNickname(Request $request) {
+    public function updateNickname(Request $request)
+    {
         $data = $request->only(["nickname"]);
         $user = User::find(session('uid'));
         $user->nickname = $data["nickname"];

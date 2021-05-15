@@ -34,5 +34,6 @@ Route::namespace('Api')->group(function () {
         Route::get('/order/{id}', "OrderController@order");
         Route::post('/order', "OrderController@create");
         Route::post('/order/{id}/close', "OrderController@close");
+        Route::post('/image', "ImageController@upload");
     });
 });
