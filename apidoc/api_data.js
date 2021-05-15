@@ -397,14 +397,14 @@ define({ "api": [
             "type": "Object",
             "optional": false,
             "field": "data",
-            "description": "<p>订单列表信息</p>"
+            "description": "<p>订单信息</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":{}}",
           "type": "json"
         }
       ]
@@ -439,7 +439,7 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "Array",
             "optional": false,
             "field": "data",
             "description": "<p>订单列表信息</p>"
@@ -449,7 +449,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "{\"code\":0,\"status\":\"成功\",\"data\":43}",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":{}}",
           "type": "json"
         }
       ]

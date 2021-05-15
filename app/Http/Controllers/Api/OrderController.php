@@ -19,13 +19,18 @@ class OrderController extends Controller
      *
      * @apiSuccess {Number} code     状态码，0：请求成功
      * @apiSuccess {String} message  提示信息
-     * @apiSuccess {Object} data     订单列表信息
+     * @apiSuccess {Array} data     订单列表信息
      *
      * @apiSuccessExample {json} Success-Response:
-     * {"code":0,"status":"成功","data":43}
+     * {"code":0,"status":"成功","data":{}}
      */
-    public function orderList(Request $request) {
-        $order_list = Order::query()->where("uid", session('uid'))->get()->toArray();
+    public function orderList(Request $request)
+    {
+        $order_list = Order::query()->select('orders.*', 'cars.mileage as mileage', 'car_models.name as model_name', 'car_models.imgUrl as imgurl')
+            ->where("orders.uid", session('uid'))
+            ->join('cars', 'orders.car_id', '=', 'cars.id')
+            ->join('car_models', 'cars.model', '=', 'car_models.id')
+            ->get()->toArray();
 
         return msg(0, $order_list);
     }
@@ -41,15 +46,20 @@ class OrderController extends Controller
      *
      * @apiSuccess {Number} code     状态码，0：请求成功
      * @apiSuccess {String} message  提示信息
-     * @apiSuccess {Object} data     订单列表信息
+     * @apiSuccess {Object} data     订单信息
      *
      * @apiSuccessExample {json} Success-Response:
-     * {"code":0,"status":"成功","data":43}
+     * {"code":0,"status":"成功","data":{}}
      */
-    public function order(Request $request) {
+    public function order(Request $request)
+    {
         $id = $request->route('id');
-        $order = Order::query()->where("id", $id)->where("uid", session('uid'))
-                                    ->first();
+
+        $order = Order::query()->select('orders.*', 'cars.mileage as mileage', 'car_models.name as model_name', 'car_models.imgUrl as imgurl')
+            ->where("orders.id", $id)->where("orders.uid", session('uid'))
+            ->join('cars', 'orders.car_id', '=', 'cars.id')
+            ->join('car_models', 'cars.model', '=', 'car_models.id')
+            ->first();
 
         return msg(0, $order);
     }
@@ -70,11 +80,12 @@ class OrderController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $car_id = $request->input("car_id");
         // $user = User::find(session('uid'));
         $car = Car::find($car_id);
-        
+
         $order = new Order([
             'uid' => session('uid'),
             'car_id' => $car_id,
@@ -110,11 +121,12 @@ class OrderController extends Controller
      * @apiSuccessExample {json} Success-Response:
      * {"code":0,"status":"成功","data":43}
      */
-    public function close(Request $request) {
+    public function close(Request $request)
+    {
         // $user = User::find(session('uid'));
         $id = $request->route('id');
         $order = Order::find($id);
-        if($order->uid != session("uid") || $order->status == 4) {
+        if ($order->uid != session("uid") || $order->status == 4) {
             return msg(5, "非法操作");
         }
 
