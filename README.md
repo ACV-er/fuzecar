@@ -1,4 +1,4 @@
-# 湘大点评后端及后台
+# fuzecar后端
 
 ## 描述
 * 基于php7.3的laravel项目，使用composer作为包管理工具，项目构建时自动完成`composer install`  
@@ -22,7 +22,7 @@
 * 构建中数据迁移有报错手动执行 `docker exec -it upick_php php artisan migrate`
 * phpMyAdmin 地址为 `/mathjucool` (数据库)
 
-## [接口文档](https://git.sky31.com/dinghaodong/UpickBackend/blob/master/api.md)
+## [接口文档](https://fuzecar.acver.xyz/apidoc/)
 > 暂时没有
 
 ## 默认遵守的规定
@@ -61,9 +61,5 @@ if (Validator::make($data, $mod)->fails()) {
 
 |     session    |    意义    |
 | :------------: | :----------------: |
-|    `login`     |     用户是否登陆   |
 |     `uid`      |   当前登录用户id   |
-| `ManagerLogin` |   管理员是否登陆   |
-|     `mid`      |  当前登录管理员id  |
-|    `level`     | 当前登录管理员等级 |
 
