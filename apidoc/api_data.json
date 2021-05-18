@@ -1,5 +1,310 @@
 [
   {
+    "type": "get",
+    "url": "/api/post/:id/comments",
+    "title": "博客评论列表",
+    "group": "博客",
+    "version": "1.0.0",
+    "description": "<p>博客评论列表</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>博客id，url参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>博客评论列表</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":[]}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/PostController.php",
+    "groupTitle": "博客",
+    "name": "GetApiPostIdComments"
+  },
+  {
+    "type": "get",
+    "url": "/api/posts",
+    "title": "获取博客列表",
+    "group": "博客",
+    "version": "1.0.0",
+    "description": "<p>获取博客列表</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>博客列表</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":[]}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/PostController.php",
+    "groupTitle": "博客",
+    "name": "GetApiPosts"
+  },
+  {
+    "type": "post",
+    "url": "/api/post",
+    "title": "发布博客",
+    "group": "博客",
+    "version": "1.0.0",
+    "description": "<p>发布博客，登陆后可操作</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "oid",
+            "description": "<p>订单id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>内容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>后端参考信息，前端无关</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":35}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/PostController.php",
+    "groupTitle": "博客",
+    "name": "PostApiPost"
+  },
+  {
+    "type": "post",
+    "url": "/api/post/:id/comment",
+    "title": "发布博客评论",
+    "group": "博客",
+    "version": "1.0.0",
+    "description": "<p>博客评论</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>博客id，url参数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "replied",
+            "description": "<p>被评论的评论id，若为评论博客则为0</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>评论内容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>无关信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":[]}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/PostController.php",
+    "groupTitle": "博客",
+    "name": "PostApiPostIdComment"
+  },
+  {
+    "type": "post",
+    "url": "/api/post/:id/like",
+    "title": "点赞博客",
+    "group": "博客",
+    "version": "1.0.0",
+    "description": "<p>点赞博客</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>博客id，url参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>状态码，0：请求成功</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>提示信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>博客列表</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\"code\":0,\"status\":\"成功\",\"data\":[]}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/PostController.php",
+    "groupTitle": "博客",
+    "name": "PostApiPostIdLike"
+  },
+  {
     "type": "post",
     "url": "/api/image",
     "title": "图片上传",

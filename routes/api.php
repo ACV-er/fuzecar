@@ -23,6 +23,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/car/{car_id}', "CarController@history");
     Route::post('/user', "UserController@register");
     Route::get('/user', "UserController@login");
+    Route::get('/posts', "PostController@list");
+    Route::get('/post/{id}/comments', "PostController@cmt_list");
 
     Route::group(['middleware' => 'login.check'], function () {
         Route::post('/user/password', "UserController@updatePassword");
@@ -35,5 +37,9 @@ Route::namespace('Api')->group(function () {
         Route::post('/order', "OrderController@create");
         Route::post('/order/{id}/close', "OrderController@close");
         Route::post('/image', "ImageController@upload");
+
+        Route::post('/post', "PostController@publish");
+        Route::post('/post/{id}/like', "PostController@like");
+        Route::post('/post/{id}/comment', "PostController@comment");
     });
 });
