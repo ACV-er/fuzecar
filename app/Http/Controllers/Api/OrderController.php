@@ -131,6 +131,7 @@ class OrderController extends Controller
         }
 
         $car = Car::find($order->car_id);
+        $car->consumption = ($car->consumption * $car->mileage + $request->input("consumption") * $request->input("mileage")) / ($car->mileage + $request->input("mileage"));
         $car->setPosition($request->input("positionX"), $request->input("positionY"));
         $car->addMileage($request->input("mileage"));
         $car->setCity($request->input("city"));

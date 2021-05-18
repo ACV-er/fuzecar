@@ -21,6 +21,7 @@ class CreateCarsTable extends Migration
             $table->string("mileage")->comment("总里程");
             $table->string("number_plate", 20);
             $table->json("imageUrls")->comment("车辆照片");
+            $table->float("consumption")->default(7.0)->comment("油耗");
             $table->string("city", 500);
             $table->timestamps();
         });

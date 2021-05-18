@@ -97,7 +97,12 @@ class CarController extends Controller
     public function history(Request $request)
     {
         $car_id = $request->route('car_id');
-        $car = Car::find($car_id)->toArray();
+        $car = Car::query()
+            ->select("cars.*", "car_models.name as model_name")
+            ->where('cars.id', $car_id)
+            ->join('car_models', 'cars.model', '=', 'car_models.id')
+            ->get()
+            ->toArray();
         $history = Order::query()->select("begin_status", "end_status", "begin_time", "end_time")
             ->where("car_id", $car_id)
             ->get()->toArray();
