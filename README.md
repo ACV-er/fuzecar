@@ -15,7 +15,7 @@
  ```
   ./install.sh
  ```
-* web访问端口映射在10303，部署前确保该端口未被占用
+* web访问端口映射在10304，部署前确保该端口未被占用
 * mysql存在默认密码，做相应修改**\[必须修改\]**
 * laravel.env需要单独配置
 * 构建中数据迁移有报错手动执行 `docker exec -it upick_php php artisan migrate`
