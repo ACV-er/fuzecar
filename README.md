@@ -1,4 +1,4 @@
-# 湘大点评后端及后台
+# fuzecar后端
 
 ## 描述
 * 基于php7.3的laravel项目，使用composer作为包管理工具，项目构建时自动完成`composer install`  
@@ -14,15 +14,14 @@
 * 构建
  ```
   ./install.sh
-  // 编辑 .env 加入三翼开发者接口调用凭据
  ```
-* web访问端口映射在10303，部署前确保该端口未被占用
+* web访问端口映射在10304，部署前确保该端口未被占用
 * mysql存在默认密码，做相应修改**\[必须修改\]**
 * laravel.env需要单独配置
 * 构建中数据迁移有报错手动执行 `docker exec -it upick_php php artisan migrate`
 * phpMyAdmin 地址为 `/mathjucool` (数据库)
 
-## [接口文档](https://git.sky31.com/dinghaodong/UpickBackend/blob/master/api.md)
+## [接口文档](https://fuzecar.acver.xyz/apidoc/)
 > 暂时没有
 
 ## 默认遵守的规定
@@ -31,22 +30,6 @@
 * 引入的文件写在composer.json `autoload["files"]`
 * 引入的类写在composer.jsn `autoload["psr-4"]`
 * 自己封装的工具函数放到 `app/Helper/tools` 文件
-* 所有前端参数均以如下方式检验 （关键 判断是否存在，使用Validator检验格式，其余可适当调整
-
-```php
-// 本例前端参数为 stu_id 与 password
-$mod = array(
-    'stu_id' => ['regex:/^20[\d]{8,10}$/'],
-    'password' => ['regex:/^[^\s]{8,20}$/'],
-);
-if (!$request->has(array_keys($mod))) {
-    return msg(1, __LINE__);
-}
-$data = $request->only(array_keys($mod));
-
-if (Validator::make($data, $mod)->fails()) {
-    return msg(3, '数据格式错误' . __LINE__);
-};
 ```
 
 ## 对laravel默认配置的一些改动
@@ -61,9 +44,5 @@ if (Validator::make($data, $mod)->fails()) {
 
 |     session    |    意义    |
 | :------------: | :----------------: |
-|    `login`     |     用户是否登陆   |
 |     `uid`      |   当前登录用户id   |
-| `ManagerLogin` |   管理员是否登陆   |
-|     `mid`      |  当前登录管理员id  |
-|    `level`     | 当前登录管理员等级 |
 
