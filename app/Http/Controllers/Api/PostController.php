@@ -66,7 +66,7 @@ class PostController extends Controller
      */
     public function list(Request $request)
     {
-        return msg(0, Post::query()->select("posts.*", "users.nickname as nickname", "users.avatar as avatar")
+        return msg(0, Post::query()->select("posts.*", "users.nickname as nickname", "users.avatar as avatar", "users.signature as signature")
             ->join("users", "posts.publisher", "=", "users.id")
             ->orderBy('updated_at', 'desc')->get()->toArray());
     }
