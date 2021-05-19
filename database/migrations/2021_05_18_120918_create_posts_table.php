@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->string("car_name");
             $table->string("stroke")->comment("行程");
             $table->string("consumption")->comment("油耗");
+            $table->string("img", 200)->comment("汽车图片");
             $table->float("mileage")->comment("里程");
 
             $table->timestamps();
