@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Pick;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -95,7 +96,17 @@ class PostController extends Controller
      */
     public function like(Request $request)
     {
+        $pick = Pick::query()->where('uid', session("uid"))->where('pid', $request->route('id'))->get()->toArray();
+        if ($pick) return msg(4, "已赞过");
+
         DB::table('posts')->where('id', $request->route('id'))->increment('like');
+        $pick = new Pick([
+            'uid' => session("uid"),
+            'pid' => $request->route('id'),
+        ]);
+
+        $pick->save();
+
         return msg(0, "");
     }
 

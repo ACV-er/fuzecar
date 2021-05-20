@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pick;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -166,5 +167,26 @@ class UserController extends Controller
         $user->nickname = $data["nickname"];
         $user->save();
         return msg(0, __LINE__);
+    }
+
+    /**
+     * @api {get} /api/user/lick     获取用户点赞过的文章
+     * @apiGroup 用户
+     * @apiVersion 1.0.0
+     *
+     * @apiDescription 获取用户点赞过的文章
+     *
+     *
+     * @apiSuccess {Number} code     状态码，0：请求成功
+     * @apiSuccess {String} message  提示信息
+     * @apiSuccess {Array}  data     获取用户点赞列表 
+     *
+     * @apiSuccessExample {json} Success-Response:
+     * {"code":0,"status":"成功","data":[]}
+     */
+    public function like_list(Request $request)
+    {
+        $list = Pick::query()->select("pid")->where('uid', session('uid'))->get()->toArray();
+        return msg(0, array_column($list, 'pid'));
     }
 }
